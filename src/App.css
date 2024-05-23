@@ -40,8 +40,26 @@
   cursor: pointer;
 }
 
+.main_section summary {
+  font-size: large;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
 .main_section {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.img_section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.img_section img {
+  width: 300px;
 }

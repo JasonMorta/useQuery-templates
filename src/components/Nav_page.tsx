@@ -9,6 +9,7 @@ import { Basic_req } from './Basic_req';
 import { Data_fetch_error } from './Data_fetch_error';
 import { Get_users_btn } from './Get_users_btn';
 import { On_success } from './On_success';
+import { Other } from './Other';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -26,6 +27,7 @@ function CustomTabPanel(props: TabPanelProps) {
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
+      sx={{maxWidth: "1000px"}}
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
@@ -52,7 +54,7 @@ export default function Nav_page() {
 
   return (
    <div className='home_page'>
-        <Box sx={{ width: '1000px' }}>
+        <Box sx={{ maxWidth: '1200px' }}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
               <Tab label="Home" {...a11yProps(0)} />
@@ -60,7 +62,8 @@ export default function Nav_page() {
               <Tab label="useQuery Basic Request" {...a11yProps(2)} />
               <Tab label="useQuery Error" {...a11yProps(3)} />
               <Tab label="Get user Button" {...a11yProps(4)} />
-              <Tab label="On fetch success" {...a11yProps(4)} />
+              <Tab label="On fetch success" {...a11yProps(5)} />
+              <Tab label="Other" {...a11yProps(5)} />
             </Tabs>
           </Box>
           <CustomTabPanel value={value} index={0}>
@@ -80,6 +83,9 @@ export default function Nav_page() {
           </CustomTabPanel>
           <CustomTabPanel value={value} index={5}>
             <On_success />
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={6}>
+            <Other />
           </CustomTabPanel>
         </Box>
    </div>

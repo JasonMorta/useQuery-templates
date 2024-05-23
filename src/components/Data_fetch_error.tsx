@@ -23,11 +23,11 @@ export const Data_fetch_error: React.FC<unknown> = () => {
     const { data, isError, isLoading, error } = useQuery('error-req', req)
 
     if (isLoading) {
-        return <div><h2>Loading...</h2></div>
+        return <section className='main_section'><h2>Loading...</h2></section>
     }
 
     if (isError) {
-        return <div><h2>{(error as Error).message}</h2></div>
+        return <section className='main_section'><h2>{(error as Error).message}</h2></section>
     }
 
     return (
