@@ -10,6 +10,7 @@ import { Data_fetch_error } from './Data_fetch_error';
 import { Get_users_btn } from './Get_users_btn';
 import { On_success } from './On_success';
 import { Other } from './Other';
+import { ParallelQueries } from './ParallelQueries';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -63,7 +64,8 @@ export default function Nav_page() {
               <Tab label="useQuery Error" {...a11yProps(3)} />
               <Tab label="Get user Button" {...a11yProps(4)} />
               <Tab label="On fetch success" {...a11yProps(5)} />
-              <Tab label="Other" {...a11yProps(5)} />
+              <Tab label="Parallel Queries" {...a11yProps(6)} />
+              <Tab label="Other" {...a11yProps(7)} />
             </Tabs>
           </Box>
           <CustomTabPanel value={value} index={0}>
@@ -85,6 +87,9 @@ export default function Nav_page() {
             <On_success />
           </CustomTabPanel>
           <CustomTabPanel value={value} index={6}>
+            <ParallelQueries />
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={7}>
             <Other />
           </CustomTabPanel>
         </Box>

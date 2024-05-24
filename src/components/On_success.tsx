@@ -21,10 +21,9 @@ const req = () => axios.get('http://localhost:3003/initialUser?count=' + amount)
 //BASIC DATA FETCHING WITH REACT QUERY
 export const On_success: React.FC<unknown> = () => {
 
-    
-
     const onError = (err: Error) => {
-        console.log('err🚨')
+        console.log('err🚨', err)
+    
         stopQuery = false // stop polling and requests if there is an error
     }
 
