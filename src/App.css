@@ -72,3 +72,28 @@ width: -webkit-fill-available;
   border-radius: 12px;
   margin: 20px;
 }
+
+.super_section_main {
+  display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    width: 100dvw;
+}
+
+.hero_section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 20dvw;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.hero_section h3 {
+  width: 100%;
+}
+
+.hero_section p {
+  margin: 0;
+}

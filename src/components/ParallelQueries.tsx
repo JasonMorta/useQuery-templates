@@ -1,114 +1,68 @@
 import axios from 'axios'
 import React from 'react'
-import { useQuery, useQueries } from 'react-query'
-import { Notification } from 'rsuite';
-import { Table, Button, } from 'rsuite';
-const { Column, HeaderCell, Cell } = Table;
+import { useQuery } from 'react-query'
 
-type userObject = {
-    id: string,
-    firstName: string,
-    lastName: string,
-    fullName: string,
-    age: number,
+type heroObject = {
+    name: string,
+    powers: Array<string> // Specify the type argument for the Array type
 }
 
 // const reqOne = () => axios.get(`http://localhost:3003/`) //hardUsers`)
 // const reqTwo = () => axios.get(`http://localhost:3003/`) //initialUser?count=${12000}`)
 
-const fetchUsers =  (urlParams: string) => {
-    return axios.get(`http://localhost:3003/${urlParams}`)
+const fetchHeroes =  () => {
+    return axios.get(`http://localhost:3003/superheroes`)
+}
+
+const fetchVillains =  () => {
+    return axios.get(`http://localhost:3003/superVillains`)
 }
 
 
 //BASIC DATA FETCHING WITH REACT QUERY
-export const ParallelQueries: React.FC<unknown> = ({urlParams}) => {
+export const ParallelQueries: React.FC = () => {
 
     // Destructuring only needed values from the useQuery hook
 
 
     // const queryOne = useQuery('reqOne', reqOne, { enabled: false })
-    // const { data: queryTwo, isLoading: queryTwoIsLoading, refetch: queryTwoRefetch } = useQuery('reqTwo', reqTwo, { enabled: false })// Using aliasing to rename the destructured values
+   const {data: heroes} = useQuery('superheroes', fetchHeroes, {refetchOnWindowFocus: false})
+  
+  
+   const {data: villains} = useQuery('superVillains', fetchVillains,{refetchOnWindowFocus: false})
+
+   console.log('heroes', heroes?.data)
+   console.log('villains', villains?.data)
 
 
-    const parallelQueries = useQueries(
-       
-        urlParams.map((param: string) => {
-            return {
-                queryKey: ['users', param],
-                queryFn: () => fetchUsers(param),
-                enabled: false
-            }
-        })
-    )
-    console.log('parallelQueries', parallelQueries)
+
 
     // if (queryOne.isLoading || queryTwoIsLoading) {
-        return <div><h2>Loading...</h2></div>
+       
     // }
 
 
-    // return (
-    //     <section className='main_section'>
-    //         <p>Only get users on button click, NOT when component mounts. Here the useQuery is disabled and makes use of the "refetch" method to manually fetch data</p>
-    //         <br />
-    //         <Button color="cyan" appearance="subtle" onClick={() => {
-    //             queryOne.refetch()
-    //             queryTwoRefetch()
-    //             console.log('queryTwo?.data', queryTwo?.data)
-    //         }}
-    //         >Get Users</Button>
-    //         <section className='normal_users_section'>
+    return (
+        <section className='main_section'>
+            <h2> Fetch data in parallel from two endpoints </h2>
 
-    //             {queryOne.data?.data.map((user: userObject) => {
-    //                 return (
-    //                     <Notification key={user.id} className='user_card_main'>
-
-    //                         <b>First name:</b> {user.firstName}<br />
-    //                         <b>Last name</b>: {user.lastName}<br />
-    //                         <b>Age:</b> {user.age}
-    //                     </Notification>
-    //                 )
-    //             })}
-    //             <div className='divider'></div>
-
-
-    //         </section>
-    //         <Table
-    //             virtualized={true}
-    //             height={300}
-    //             width={1000}
-    //             loadAnimation
-    //             cellBordered
-    //             data={queryTwo?.data}>
-
-    //             <Column width={130}>
-    //                 <HeaderCell>{queryTwo?.data.length}</HeaderCell>
-    //                 <Cell dataKey="id" />
-    //             </Column>
-
-    //             <Column width={130}>
-    //                 <HeaderCell>First Name</HeaderCell>
-    //                 <Cell dataKey="firstName" />
-    //             </Column>
-
-    //             <Column width={130}>
-    //                 <HeaderCell>Last Name</HeaderCell>
-    //                 <Cell dataKey="lastName" />
-    //             </Column>
-
-    //             <Column width={100}>
-    //                 <HeaderCell>Full name</HeaderCell>
-    //                 <Cell dataKey="fullName" />
-    //             </Column>
-
-    //             <Column width={100}>
-    //                 <HeaderCell>Age</HeaderCell>
-    //                 <Cell dataKey="age" />
-    //             </Column>
-    //         </Table>
-    //     </section >
-    // )
+     
+               <section className='super_section_main'>
+                    <section className='hero_section'>
+                        <h3>Heroes</h3>
+                        {heroes?.data ? heroes?.data.map((hero: heroObject) => 
+                        <p key={hero.name}>{hero?.name} | </p>)
+                        : <>no heroes</>}
+                    </section>
+                    <section className='hero_section'>
+                        <h3>Villains</h3>
+                        {villains?.data ? villains?.data.map((villain: heroObject) => 
+                        <p key={villain.name}>{villain?.name} | </p>)
+                        : <>no villains</>}
+                    </section>
+               </section>
+        </section >
+    )
 }
 
 
