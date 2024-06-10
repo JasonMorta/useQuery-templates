@@ -18,15 +18,25 @@ export const Default_fetching: React.FC<object> = () => {
 
     //triggers twice and updates the state
     useEffect(() => {
-        // axios.get('http://localhost:3003/initialUser').then((res) => {
-        async function fetchData() {
-           await fetch("13.60.31.199:3003/initialUser")
-           .then((response) => response.json())
-           .then((result) => console.log(result))
-           .catch((error) => console.error(error));
-        }
 
-        fetchData()
+        async function myData() {
+          await fetch("13.60.31.199:3003/initialUser")
+          .then((response) => response.json())
+          .then((result) => console.log('result🚨', result))
+          .catch((error) => console.error(error));
+        }
+        myData()
+        // axios.get('http://localhost:3003/initialUser').then((res) => {
+        axios.get('13.60.31.199:3003/initialUser').then((res) => {
+            console.log(JSON.stringify(res.data))
+            if (res?.data) {
+                // setData(res?.data)
+                // setIsLoading(false)
+            }
+        })
+            .catch((err) => {
+                console.log(err)
+            })
     }, [])
 
 
