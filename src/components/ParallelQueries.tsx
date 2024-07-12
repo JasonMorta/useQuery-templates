@@ -11,11 +11,11 @@ type heroObject = {
 // const reqTwo = () => axios.get(`http://localhost:3003/`) //initialUser?count=${12000}`)
 
 const fetchHeroes =  () => {
-    return axios.get(`http://localhost:3003/superheroes`)
+    return axios.get(`http://localhost:3008/superheroes`)
 }
 
 const fetchVillains =  () => {
-    return axios.get(`http://localhost:3003/superVillains`)
+    return axios.get(`http://localhost:3008/superVillains`)
 }
 
 

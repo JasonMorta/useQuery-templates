@@ -12,7 +12,7 @@ type userObject = {
     age: number,
 }
 
-const getUsers = () => axios.get('http://localhost:3003/initialUser')
+const getUsers = () => axios.get('http://localhost:3008/initialUser')
 
 
 //BASIC DATA FETCHING WITH REACT QUERY

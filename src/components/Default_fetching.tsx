@@ -20,14 +20,14 @@ export const Default_fetching: React.FC<object> = () => {
     useEffect(() => {
 
         async function myData() {
-          await fetch("13.60.31.199:3003/initialUser")
+          await fetch("http://localhost:3008/initialUser")
           .then((response) => response.json())
           .then((result) => console.log('result🚨', result))
           .catch((error) => console.error(error));
         }
         myData()
         // axios.get('http://localhost:3003/initialUser').then((res) => {
-        axios.get('13.60.31.199:3003/initialUser').then((res) => {
+        axios.get('http://localhost:3008/initialUser').then((res) => {
             console.log(JSON.stringify(res.data))
             if (res?.data) {
                 // setData(res?.data)

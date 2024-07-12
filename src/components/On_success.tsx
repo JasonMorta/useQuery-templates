@@ -16,14 +16,12 @@ let amount: number = 5
 let stopQuery: boolean = true
 
 // if '?count=amount' is invalid, the API will respond with the default amount of 10 users
-const req = () => axios.get('http://localhost:3003/initialUser?count=' + amount)//change url
+const request = () => axios.get('http://localhost:3008/initialUser?count=' + amount)//change url
 
 //BASIC DATA FETCHING WITH REACT QUERY
 export const On_success: React.FC<unknown> = () => {
-
     const onError = (err: Error) => {
         console.log('err🚨', err)
-    
         stopQuery = false // stop polling and requests if there is an error
     }
 
@@ -37,7 +35,7 @@ export const On_success: React.FC<unknown> = () => {
         }
     }
 
-    const { data, isError, isLoading, error } = useQuery('success-req', req, {
+    const { data, isError, isLoading, error } = useQuery('success-req', request, {
         refetchOnWindowFocus: false, //default is true: refetch data when the window is focused.
         onError,
         onSuccess,
