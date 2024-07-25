@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios'
 import React from 'react'
 import { useQuery } from 'react-query'
@@ -12,7 +13,10 @@ type userObject = {
     age: number,
 }
 
-const getUsers = () => axios.get('http://localhost:3008/initialUser')
+const getUsers = (params: any) => {
+    console.log('params', params.meta.test)
+    axios.get('http://localhost:3008/initialUser')
+}
 
 
 //BASIC DATA FETCHING WITH REACT QUERY
@@ -20,28 +24,35 @@ export const Get_users_btn: React.FC<unknown> = () => {
 
     // Destructuring only needed values from the useQuery hook
 
-  
-    const { data, isLoading, refetch } = useQuery('onClick', getUsers,{
-        //cacheTime: 5000, //default is 5 minutes: clear cache after 5 seconds
 
-        //During this period(10s), React Query will not refetch the data even if the component that uses the data is re-rendered or remounted
-        //staleTime: 10000, //default is 0: refetch data after 10 seconds
+    const { data, isLoading, refetch } = useQuery(
+        
+        {
+            meta: { obj: 'a string' },
+            queryKey: 'users',
+            queryFn: getUsers,
+            //cacheTime: 5000, //default is 5 minutes: clear cache after 5 seconds
 
-        //The value 'always' can be used to always. It overrides other settings
+            //During this period(10s), React Query will not refetch the data even if the component that uses the data is re-rendered or remounted
+            //staleTime: 10000, //default is 0: refetch data after 10 seconds
 
-        refetchOnMount: true, //default is true: refetch data when the component is mounted
+            //The value 'always' can be used to always. It overrides other settings
 
-        //default is true: enable or disable the query. If false, the query will not execute
-        enabled: false, // Make the 'refetch' method to manually fetch data.
+            refetchOnMount: true, //default is true: refetch data when the component is mounted
 
-        //Also use to keep data in sync with the server.
-        refetchOnWindowFocus: false, //default is false: refetch data when the window is focused.
+            //default is true: enable or disable the query. If false, the query will not execute
+            enabled: false, // Make the 'refetch' method to manually fetch data.
 
-        //Polling is a technique used to keep data in sync with the server. 
-        //Is paused when component is not visible or the browser tab is not active
-        refetchInterval: 0, //default is 0: refetch data every # seconds
-        refetchIntervalInBackground: false, //default is false: refetch data every # seconds when the browser tab(only) is not active
-    })
+            //Also use to keep data in sync with the server.
+            refetchOnWindowFocus: false, //default is false: refetch data when the window is focused.
+
+            //Polling is a technique used to keep data in sync with the server. 
+            //Is paused when component is not visible or the browser tab is not active
+            refetchInterval: 0, //default is 0: refetch data every # seconds
+            refetchIntervalInBackground: false, //default is false: refetch data every # seconds when the browser tab(only) is not active
+        },
+      
+    )
 
     if (isLoading) {
         return <div><h2>Loading...</h2></div>
@@ -70,27 +81,27 @@ export const Get_users_btn: React.FC<unknown> = () => {
 }
 
 
-    /* Default response object of useQuery hook:
-        data: Object
-        dataUpdatedAt : 1716463033910
-        error : null
-        errorUpdateCount : 0
-        errorUpdatedAt : 0
-        failureCount : 0
-        isError : false
-        isFetched : true
-        isFetchedAfterMount : false
-        isFetching : true
-        isIdle : false
-        isLoading : false
-        isLoadingError : false
-        isPlaceholderData : false
-        isPreviousData : false
-        isRefetchError : false
-        isRefetching : true
-        isStale : true
-        isSuccess : true
-        refetch : ƒ ()
-        remove : ƒ ()
-        status : "success"
-        */
+/* Default response object of useQuery hook:
+    data: Object
+    dataUpdatedAt : 1716463033910
+    error : null
+    errorUpdateCount : 0
+    errorUpdatedAt : 0
+    failureCount : 0
+    isError : false
+    isFetched : true
+    isFetchedAfterMount : false
+    isFetching : true
+    isIdle : false
+    isLoading : false
+    isLoadingError : false
+    isPlaceholderData : false
+    isPreviousData : false
+    isRefetchError : false
+    isRefetching : true
+    isStale : true
+    isSuccess : true
+    refetch : ƒ ()
+    remove : ƒ ()
+    status : "success"
+    */
